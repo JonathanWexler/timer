@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="clock.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class='center'>
+    <span id="clock"></span>
+
+    <select id="time-set">
+      <option value="0">Select</option>
+      <option value="5">5 Minutes</option>
+      <option value="10">10 Minutes</option>
+      <option value="15">15 Minutes</option>
+      <option value="30">30 Minutes</option>
+      <option value="45">45 Minutes</option>
+      <option value="60">1 Hour</option>
+    </select>
+  </div>
+
+  <script type="text/javascript">
+  var min = t = sec = 0;
+  var timer = null;
+
+  $(document).ready(function() {
+
+  var c = document.cookie;
+  if (c) {
+    c = c.split("=").pop();
+    var old_time = new Date(parseInt(c)).getTime();
+    var now = new Date().getTime();
+    if (old_time > now) {
+      var diff = old_time - now;
+      t = parseInt(diff / 1000);
+    }
+  }
+  clearInterval(timer);
+  startTimer(t);
+
+
+  setTime(min, sec);
+
+  var date = new Date();
+
+  $('#time-set').change(function(e) {
+    var t = parseInt($('#time-set').find(":selected").val());
+    date = new Date();
+    var new_date = new Date(date.getTime() + t * 60000);
+    document.cookie = "end_time=" + new_date.getTime();
+    t = t * 60;
+    clearInterval(timer);
+    startTimer(t);
+
+  });
+
+  $('select').hover(function(e){
+    $('select').click();
+  });
+
+
+  });
+
+  function startTimer(t) {
+  var min, sec;
+  if (t && t > 0) {
+    timer = setInterval(function() {
+      min = parseInt(t / 60);
+      sec = t % 60;
+      if(t%60 == 0){
+        //$('body').css({backgroundColor: 'blue'});
+        //$('body').animate({backgroundColor: 'white'}, 'slow');
+      }
+      setTime(min, sec);
+      t -= 1;
+      if (t < 0) {
+      clearInterval(timer);
+      }
+    }, 1000);
+  }
+  }
+
+  function setTime(min, sec) {
+  $('#clock').html(min + 'm ' + sec + 's');
+  }
+
+  </script>
+</body>
+</html>
