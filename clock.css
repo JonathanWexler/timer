@@ -4,15 +4,16 @@
   width: 300px;
   margin: 0 auto;
   padding-top: 20%;
-  select {
-    width: 100%;
-    border: none;
-    height: 20px;
-  }
-  #clock {
-    font-size: 70px;
-    //font-weight: 600;
-    text-align: center;
-    font-family: Exo;
-  }
+
+}
+.center select {
+  width: 100%;
+  border: none;
+  height: 20px;
+}
+ .center #clock {
+  font-size: 70px;
+  //font-weight: 600;
+  text-align: center;
+  font-family: Exo;
 }
